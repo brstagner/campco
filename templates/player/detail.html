@@ -1,0 +1,94 @@
+{% extends 'base.html' %} {% block title %}Player Details{% endblock %} {%block
+body %}
+
+<a class="navigate" href="/user">return to user detail</a>
+
+<div class="column">
+  <div><h2>Player: {{ player.name }}</h2></div>
+  {% if campaign %}
+  <div>
+    <h2>
+      Campaign: {% if campaign %}<a href="/campaign/{{player.campaign_id}}"
+        >{{ campaign }}</a
+      >
+      {% else %} None {% endif %}
+    </h2>
+  </div>
+  {% endif %}
+  <div>
+    {% if edit %}
+    <a class="edit" href="/player/{{player.player_id}}/edit/player">edit</a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="grid-container">
+  <div id="demo" class="column category">
+    <button>DEMOGRAPHICS</button>
+    <div hidden>{% include "player/detail-cards/demo-detail.html" %}</div>
+  </div>
+
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/demo">edit</a>
+  {% endif %}
+
+  <div id="vitals" class="column category">
+    <button>VITALS</button>
+    <div hidden>{% include "player/detail-cards/vitals-detail.html" %}</div>
+  </div>
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/vitals">edit</a>
+  {% endif %}
+
+  <div id="combat" class="column category">
+    <button>COMBAT</button>
+    <div hidden>{% include "player/detail-cards/combat-detail.html" %}</div>
+  </div>
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/combat">edit</a>
+  {% endif %}
+
+  <div id="spells" class="column category">
+    <button>SPELLS</button>
+    <div hidden>{% include "player/detail-cards/spells-detail.html" %}</div>
+  </div>
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/spells">edit</a>
+  {% endif %}
+
+  <div id="ability" class="column category">
+    <button>ABILITY SCORES</button>
+    <div hidden>{% include "player/detail-cards/ability-detail.html" %}</div>
+  </div>
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/ability">edit</a>
+  {% endif %}
+
+  <div id="proficiencies" class="column category">
+    <button>PROFICIENCIES</button>
+    <div hidden>
+      {% include "player/detail-cards/proficiency-detail.html" %}
+    </div>
+  </div>
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/proficiency">edit</a>
+  {% endif %}
+
+  <div id="items" class="column category">
+    <button>INVENTORY</button>
+    <div hidden>{% include "player/detail-cards/items-detail.html" %}</div>
+  </div>
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/items">edit</a>
+  {% endif %}
+
+  <div id="level" class="column category">
+    <button>LEVELS</button>
+    <div hidden>{% include "player/detail-cards/level-detail.html" %}</div>
+  </div>
+  {% if edit %}
+  <a class="edit" href="/player/{{player.player_id}}/edit/level">edit</a>
+  {% endif %}
+</div>
+<script src="/static/player-detail.js"></script>
+{% endblock %}

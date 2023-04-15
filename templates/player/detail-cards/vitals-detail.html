@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="collection">
+    HP:
+    <div class="item">{{ vitals.hp.current }}/{{ vitals.hp.max }}</div>
+  </div>
+
+  <div class="collection">
+    HD: {% if vitals.hd %}{% for hit_dice in vitals.hd %}
+    <div class="item">
+      {{ hit_dice.number }} x {{ hit_dice.die }} + {{ hit_dice.modifier }}
+    </div>
+    {% endfor %}{% endif %}
+  </div>
+
+  <div class="collection">
+    Conditions: {% if vitals.conditions %}{% for condition in vitals.conditions
+    %}
+    <div class="item">{{ condition.name }}</div>
+    {% endfor %}{% endif %}
+  </div>
+</div>
+{% if vitals.notes %}
+<div class="collection">
+  <div class="descriptive">{{vitals.notes}}</div>
+</div>
+{% endif %}

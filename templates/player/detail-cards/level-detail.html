@@ -1,0 +1,23 @@
+<div class="collection">
+  <div class="row">
+    <div class="item">Barbarian: {{ level.Barbarian }}</div>
+    <div class="item">Bard: {{ level.Bard }}</div>
+    <div class="item">Cleric: {{ level.Cleric }}</div>
+    <div class="item">Druid: {{ level.Druid }}</div>
+    <div class="item">Fighter: {{ level.Fighter }}</div>
+    <div class="item">Monk: {{ level.Monk }}</div>
+  </div>
+  <div class="row">
+    <div class="item">Paladin: {{ level.Paladin }}</div>
+    <div class="item">Ranger: {{ level.Ranger }}</div>
+    <div class="item">Rogue: {{ level.Rogue }}</div>
+    <div class="item">Sorcerer: {{ level.Sorcerer }}</div>
+    <div class="item">Warlock: {{ level.Warlock }}</div>
+    <div class="item">Wizard: {{ level.Wizard }}</div>
+  </div>
+</div>
+{% if level.notes %}
+<div class="collection">
+  <div class="descriptive">{{level.notes}}</div>
+</div>
+{% endif %}

@@ -1,0 +1,307 @@
+{% extends 'base.html' %} {% block title %}Edit Spells{% endblock %} {%block
+body %}
+
+<h1>Edit Spells</h1>
+<a href="/player/{{player_id}}">return without changes</a>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+
+  <div class="grid-container">
+    <div>
+      {{ form.known.label }}{{ form.known(hidden="true") }}
+      <button id="known-add">Add Spell</button>
+    </div>
+    <div id="known-input" class="row">
+      {% if spells.known %} {% for spell in spells.known %}
+      <div>
+        Name
+        <input
+          class="known-name"
+          name="known-name"
+          type="text"
+          value="{{ spell.name }}" 
+          list="spells-datalist"/>
+        Level
+        <input
+          class="known-level"
+          name="known-level"
+          type="number"
+          value="{{ spell.level }}" />
+        Description
+        <textarea
+          class="known-desc"
+          name="known-desc">{{ spell.desc }}
+        </textarea>
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.lv0.label }}{{ form.lv0(hidden="true") }}
+        <button id="lv0-add">Add Spell</button>
+    </div>
+    <div id="lv0-input" class="row">
+        {% if spells.lv0 %} {% for spell in spells.lv0 %}
+        <div>
+        Name
+        <input
+          class="lv0-name"
+          name="lv0-name"
+          type="text"
+          value="{{ spell.name }}" />
+        Number
+        <input
+          class="lv0-number"
+          name="lv0-number"
+          type="number"
+          value="{{ spell.number }}" 
+          list="spells-datalist"/>
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv1.label }}{{ form.lv1(hidden="true") }}
+        <button id="lv1-add">Add Spell</button>
+    </div>
+    <div id="lv1-input" class="row">
+        {% if spells.lv1 %} {% for spell in spells.lv1 %}
+        <div>
+        Name
+        <input
+          class="lv1-name"
+          name="lv1-name"
+          type="text"
+          value="{{ spell.name }}" 
+          list="spells-datalist"/>
+        Number
+        <input
+          class="lv1-number"
+          name="lv1-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv2.label }}{{ form.lv2(hidden="true") }}
+        <button id="lv2-add">Add Spell</button>
+    </div>
+    <div id="lv2-input" class="row">
+        {% if spells.lv2 %} {% for spell in spells.lv2 %}
+        <div>
+        Name
+        <input
+          class="lv2-name"
+          name="lv2-name"
+          type="text"
+          value="{{ spell.name }}" 
+          list="spells-datalist"/>
+        Number
+        <input
+          class="lv2-number"
+          name="lv2-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv3.label }}{{ form.lv3(hidden="true") }}
+        <button id="lv3-add">Add Spell</button>
+    </div>
+    <div id="lv3-input" class="row">
+        {% if spells.lv3 %} {% for spell in spells.lv3 %}
+        <div>
+        Name
+        <input
+          class="lv3-name"
+          name="lv3-name"
+          type="text"
+          value="{{ spell.name }}" 
+          list="spells-datalist"/>
+        Number
+        <input
+          class="lv3-number"
+          name="lv3-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv4.label }}{{ form.lv4(hidden="true") }}
+        <button id="lv4-add">Add Spell</button>
+    </div>
+    <div id="lv4-input" class="row">
+        {% if spells.lv4 %} {% for spell in spells.lv4 %}
+        <div>
+        Name
+        <input
+          class="lv4-name"
+          name="lv4-name"
+          type="text"
+          value="{{ spell.name }}" 
+          list="spells-datalist"/>
+        Number
+        <input
+          class="lv4-number"
+          name="lv4-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv5.label }}{{ form.lv5(hidden="true") }}
+        <button id="lv5-add">Add Spell</button>
+    </div>
+    <div id="lv5-input" class="row">
+        {% if spells.lv5 %} {% for spell in spells.lv5 %}
+        <div>
+        Name
+        <input
+          class="lv5-name"
+          name="lv5-name"
+          type="text"
+          value="{{ spell.name }}" />
+        Number
+        <input
+          class="lv5-number"
+          name="lv5-number"
+          type="number"
+          value="{{ spell.number }}"
+          list="spells-datalist" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv6.label }}{{ form.lv6(hidden="true") }}
+        <button id="lv6-add">Add Spell</button>
+    </div>
+    <div id="lv6-input" class="row">
+        {% if spells.lv6 %} {% for spell in spells.lv6 %}
+        <div>
+        Name
+        <input
+          class="lv6-name"
+          name="lv6-name"
+          type="text"
+          value="{{ spell.name }}"
+          list="spells-datalist" />
+        Number
+        <input
+          class="lv6-number"
+          name="lv6-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv7.label }}{{ form.lv7(hidden="true") }}
+        <button id="lv7-add">Add Spell</button>
+    </div>
+    <div id="lv7-input" class="row">
+        {% if spells.lv7 %} {% for spell in spells.lv7 %}
+        <div>
+        Name
+        <input
+          class="lv7-name"
+          name="lv7-name"
+          type="text"
+          value="{{ spell.name }}" 
+          list="spells-datalist"/>
+        Number
+        <input
+          class="lv7-number"
+          name="lv7-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv8.label }}{{ form.lv8(hidden="true") }}
+        <button id="lv8-add">Add Spell</button>
+    </div>
+    <div id="lv8-input" class="row">
+        {% if spells.lv8 %} {% for spell in spells.lv8 %}
+        <div>
+        Name
+        <input
+          class="lv8-name"
+          name="lv8-name"
+          type="text"
+          value="{{ spell.name }}" 
+          list="spells-datalist"/>
+        Number
+        <input
+          class="lv8-number"
+          name="lv8-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div>
+      {{ form.lv9.label }}{{ form.lv9(hidden="true") }}
+        <button id="lv9-add">Add Spell</button>
+    </div>
+    <div id="lv9-input" class="row">
+        {% if spells.lv9 %} {% for spell in spells.lv9 %}
+        <div>
+        Name
+        <input
+          class="lv9-name"
+          name="lv9-name"
+          type="text"
+          value="{{ spell.name }}"
+          list="spells-datalist" />
+        Number
+        <input
+          class="lv9-number"
+          name="lv9-number"
+          type="number"
+          value="{{ spell.number }}" />
+          <button class="delete">Delete</button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div>{{ form.notes.label }}</div>
+        <div>{{ form.notes }}</div>
+    </div>
+  <button id="submit">Submit</button>
+</form>
+
+<datalist id="spells-datalist">
+  {% for spell in options %}
+  <option
+    id="{{ spell.index }}"
+    value="{{ spell.name }}"
+    data-desc="{{ spell.desc }}">
+    {% endfor %}
+  </option>
+</datalist>
+
+<script src="/static/edit/edit-spells.js"></script>
+
+{% endblock %}

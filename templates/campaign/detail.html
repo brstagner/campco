@@ -1,0 +1,27 @@
+{% extends 'base.html' %} {% block title %}Campaign Details{% endblock %}
+{%block body %}
+
+<a href="/user">return to user detail</a>
+
+<div class="row">
+  <h1>{{ campaign.name }}</h1>
+  {% if dm %}<a class="edit" href="/campaign/{{campaign.campaign_id}}/edit"
+    >edit</a
+  >{% endif %}
+</div>
+
+{% if campaign.description %}
+<h4 class="campaign-descriptive">"{{ campaign.description }}"</h4>
+{% endif %}
+
+<h4>Dungeon Master: {{ session['username'] }}</h4>
+
+<h4>Player Characters:</h4>
+<ul>
+  {% for player in players %}
+  <li>
+    <a href="/campaign/party/{{ player.player_id }}">{{ player.name }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

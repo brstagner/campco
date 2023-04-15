@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% block title %}Edit Player{% endblock %} {%block
+body %}
+
+<h1>Edit: {{ player.name }}</h1>
+
+<a href="/player/{{ player.player_id }}">return without changes</a><br />
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="grid-container">
+    <div>{{ form.campaign_id.label }}</div>
+    <div>{{ form.campaign_id }}</div>
+    <div>{{ form.password.label }}</div>
+    <div>{{ form.password }}</div>
+    <div>{{ form.name.label }}</div>
+    <div>{{ form.name }}</div>
+  </div>
+  <button id="submit">Submit</button>
+</form>
+
+<datalist id="campaign-datalist">
+  {% for campaign in campaigns %}
+  <option
+    id="{{ campaign.campaign_id }}"
+    value="{{campaign.name}} - {{ campaign.campaign_id }}"></option>
+  {% endfor %}
+</datalist>
+
+<script src="/static/edit/edit-player.js"
+
+{{campaigns}} {% endblock %}

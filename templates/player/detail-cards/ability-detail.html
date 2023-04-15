@@ -1,0 +1,17 @@
+<div class="collection">
+  <div class="row">
+    <div class="item">Strength: {{ ability.strength }}</div>
+    <div class="item">Dexterity: {{ ability.dexterity }}</div>
+    <div class="item">Constitution: {{ ability.constitution }}</div>
+  </div>
+  <div class="row">
+    <div class="item">Intelligence: {{ ability.intelligence }}</div>
+    <div class="item">Wisdom: {{ ability.wisdom }}</div>
+    <div class="item">Charisma: {{ ability.charisma }}</div>
+  </div>
+</div>
+{% if ability.notes %}
+<div class="collection">
+  <div class="descriptive">{{ability.notes}}</div>
+</div>
+{% endif %}

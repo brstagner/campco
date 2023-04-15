@@ -1,0 +1,172 @@
+{% extends 'base.html' %} {% block title %}Edit Proficiency{% endblock %}
+{%block body %}
+
+<h1>Edit Proficiency</h1>
+<a href="/player/{{player_id}}">return without changes</a>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="grid-container">
+    <div>
+      {{ form.skills.label }}{{ form.skills(hidden="true") }}
+      <button id="skills-add" class="add" data-type="skills">Add Skill</button>
+    </div>
+    <div id="skills-input" class="row">
+      {% if proficiency.skills %} {% for skill in proficiency.skills %}
+      <div>
+        Name
+        <input
+          class="skills-name"
+          name="skills-name"
+          list="skills-datalist"
+          value="{{ skill.name }}" />
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.weapons.label }}{{ form.weapons(hidden="true") }}
+      <button id="weapons-add" class="add" data-type="weapons">
+        Add Weapon
+      </button>
+    </div>
+    <div id="weapons-input" class="row">
+      {% if proficiency.weapons %} {% for weapon in proficiency.weapons %}
+      <div>
+        Name
+        <input
+          class="weapons-name"
+          name="weapons-name"
+          list="weapons-datalist"
+          value="{{ weapon.name }}" />
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.armor.label }}{{ form.armor(hidden="true") }}
+      <button id="armor-add" class="add" data-type="armor">Add Armor</button>
+    </div>
+    <div id="armor-input" class="row">
+      {% if proficiency.armor %} {% for armor in proficiency.armor %}
+      <div>
+        Name
+        <input
+          class="armor-name"
+          name="armor-name"
+          list="armor-datalist"
+          value="{{ armor.name }}" />
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.tools.label }}{{ form.tools(hidden="true") }}
+      <button id="tools-add" class="add" data-type="tools">Add tool</button>
+    </div>
+    <div id="tools-input" class="row">
+      {% if proficiency.tools %} {% for tool in proficiency.tools %}
+      <div>
+        Name
+        <input
+          class="tools-name"
+          name="tools-name"
+          list="tools-datalist"
+          value="{{ tool.name }}" />
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.languages.label }}{{ form.languages(hidden="true") }}
+      <button id="languages-add" class="add" data-type="languages">
+        Add language
+      </button>
+    </div>
+    <div id="languages-input" class="row">
+      {% if proficiency.languages %} {% for language in proficiency.languages %}
+      <div>
+        Name
+        <input
+          class="languages-name"
+          name="languages-name"
+          list="languages-datalist"
+          value="{{ language.name }}" />
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.traits.label }}{{ form.traits(hidden="true") }}
+      <button id="traits-add" class="add" data-type="traits">Add trait</button>
+    </div>
+    <div id="traits-input" class="row">
+      {% if proficiency.traits %} {% for trait in proficiency.traits %}
+      <div>
+        Name
+        <input
+          class="traits-name"
+          name="traits-name"
+          list="traits-datalist"
+          value="{{ trait.name }}" />
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.features.label }}{{ form.features(hidden="true") }}
+      <button id="features-add" class="add" data-type="features">
+        Add feature
+      </button>
+    </div>
+    <div id="features-input" class="row">
+      {% if proficiency.features %} {% for feature in proficiency.features %}
+      <div>
+        Name
+        <input
+          class="features-name"
+          name="features-name"
+          list="features-datalist"
+          value="{{ feature.name }}" />
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>{{ form.notes.label }}</div>
+    <div>{{ form.notes }}</div>
+  </div>
+  <button id="submit">Submit</button>
+</form>
+
+<datalist id="skills-datalist">
+  {% for skill in options.skills %}
+  <option id="{{ skill.name }}" value="{{ skill.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="weapons-datalist">
+  {% for weapon in options.weapons %}
+  <option id="{{ weapon.name }}" value="{{ weapon.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="armor-datalist">
+  {% for armor in options.armor %}
+  <option id="{{ armor.name }}" value="{{ armor.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="tools-datalist">
+  {% for tool in options.tools %}
+  <option id="{{ tool.name }}" value="{{ tool.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="languages-datalist">
+  {% for language in options.languages %}
+  <option id="{{ language.name }}" value="{{ language.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="traits-datalist">
+  {% for trait in options.traits %}
+  <option id="{{ trait.name }}" value="{{ trait.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="features-datalist">
+  {% for feature in options.features %}
+  <option id="{{ feature.name }}" value="{{ feature.name }}"></option>
+  {% endfor %}
+</datalist>
+
+<script src="/static/edit/edit-proficiency.js"></script>
+
+{% endblock %}

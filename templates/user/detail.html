@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block title %}User Details{% endblock %} {% block
+body %}
+
+<div class="row">
+  <div>
+    <h2>{{ user.username }}</h2>
+    <h4>Email:</h4>
+    {{ user.email }}
+  </div>
+  <a class="edit" href="/user/{{username}}/edit">edit</a>
+</div>
+
+<div>
+  <h4>Players:</h4>
+  <a class="create" href="/player/create">Create a New Player</a>
+  {% for player in players %}
+  <div><a href="/player/{{player.player_id}}">{{ player.name }}</a></div>
+  {% endfor %}
+  <h4>Campaigns:</h4>
+  <a class="create" href="/campaign/create">Create a New Campaign</a>
+  {% for campaign in campaigns %}
+  <div>
+    <a href="/campaign/{{campaign.campaign_id}}">{{ campaign.name }}</a>(DM)
+  </div>
+  {% endfor %} {% for campaign in pc_campaigns %}
+  <div>
+    <a href="/campaign/{{campaign.campaign_id}}/party">{{ campaign.name }}</a
+    >(PC)
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

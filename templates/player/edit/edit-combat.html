@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% block title %}Edit Combat{% endblock %} {%block
+body %}
+
+<h1>Edit Combat</h1>
+<a href="/player/{{player_id}}">return without changes</a>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+
+  <div class="grid-container">
+    <div>
+      {{ form.attacks.label }}{{ form.attacks(hidden="true") }}
+      <button id="attack-add">Add Attack</button>
+    </div>
+    <div id="attack-input" class="row">
+      {% if combat.attacks %} {% for attack in combat.attacks %}
+      <div>
+        Name
+        <input
+          class="attack-name"
+          name="attack-name"
+          type="text"
+          value="{{ attack.name }}" />
+        Throws
+        <input
+          class="attack-throws"
+          name="attack-throws"
+          type="number"
+          value="{{ attack.throws }}" />
+        Die
+        <input
+          class="attack-die"
+          name="attack-die"
+          type="number"
+          value="{{ attack.die }}" />
+        Number
+        <input
+          class="attack-number"
+          name="attack-number"
+          type="number"
+          value="{{ attack.number }}" />
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+
+    <div>{{ form.ac.label }}</div>
+    <div>{{ form.ac }}</div>
+
+    <div>{{ form.initiative.label }}</div>
+    <div>{{ form.initiative }}</div>
+
+    <div>{{ form.speed.label }}</div>
+    <div>{{ form.speed }}</div>
+
+    <div>{{ form.inspiration.label }}</div>
+    <div>{{ form.inspiration }}</div>
+
+    <div>{{ form.ki.label }}{{ form.ki(hidden="true") }}</div>
+    <div>
+      <label for="ki-current">Current</label>
+      <input
+        id="ki-current"
+        name="ki-current"
+        type="number"
+        value="{{ combat.ki.current }}" />
+      <label for="ki-max">Max</label>
+      <input
+        id="ki-max"
+        name="ki-max"
+        type="number"
+        value="{{ combat.ki.max }}" />
+    </div>
+
+    <div>{{ form.notes.label }}</div>
+    <div>{{ form.notes }}</div>
+  </div>
+
+  <button id="submit">Submit</button>
+</form>
+
+<script src="/static/edit/edit-combat.js"></script>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Edit User Details{% endblock %}
+{%block body %}
+
+<h1>Edit Details for {{ user.username }}</h1>
+
+<a href="/user">return without changes</a>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+  'hidden' %}
+  <p>{{ field.label }}</p>
+  <p>{{ field }} {% for error in field.errors %} {{ error }} {% endfor %}</p>
+  {% endfor %}
+  <button id="submit">Submit</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% block title %}Edit Vitals{% endblock %} {%block
+body %}
+
+<h1>Edit Vitals</h1>
+<a href="/player/{{player_id}}">return without changes</a>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+
+  <div class="grid-container">
+    <div>{{ form.hp.label }}{{ form.hp(hidden="true") }}</div>
+    <div>
+      <label for="hp-current">Current</label>
+      <input
+        id="hp-current"
+        name="hp-current"
+        type="number"
+        value="{{ vitals.hp.current }}" />
+      <label for="hp-max">Max</label>
+      <input
+        id="hp-max"
+        name="hp-max"
+        type="number"
+        value="{{ vitals.hp.max }}" />
+    </div>
+
+    <div>
+      {{ form.hd.label }}{{ form.hd(hidden="true") }}
+      <button id="hd-add">Add HD</button>
+    </div>
+    <div id="hd-input" class="row">
+      {% if vitals.hd %} {% for die in vitals.hd %}
+      <div>
+        Number
+        <input
+          class="hd-number"
+          name="hd-number"
+          type="number"
+          value="{{ die.number }}" />
+        <label for="hd-die">Die</label>
+        <input
+          class="hd-die"
+          name="hd_die"
+          type="number"
+          value="{{ die.die }}" />
+        <label for="hd-modifier">Modifier</label>
+        <input
+          class="hd-modifier"
+          name="hd-modifier"
+          type="number"
+          value="{{ die.modifier }}" />
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+
+    <div>
+      {{ form.conditions.label }}{{ form.conditions(hidden="true") }}
+      <button id="conditions-add">Add Condition</button>
+    </div>
+    <div id="conditions-input" class="row">
+      {% if vitals.conditions %} {% for condition in vitals.conditions %}
+      <div>
+        Name
+        <input
+          class="condition-name"
+          name="condition-name"
+          list="condition-name-datalist"
+          value="{{ condition.name }}" />
+        <div class="row">Description <button class="clear">clear</button></div>
+        <textarea class="condition-desc" name="condition-desc">
+{{ condition.desc }}</textarea
+        >
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+
+    <div>{{ form.notes.label }}</div>
+    <div>{{ form.notes }}</div>
+  </div>
+
+  <button id="submit">Submit</button>
+</form>
+
+<datalist id="condition-name-datalist">
+  {% for condition in options %}
+  <option
+    id="{{ condition.name }}"
+    value="{{ condition.name }}"
+    data-desc="{{ condition.desc }}">
+    {% endfor %}
+  </option>
+</datalist>
+
+<script src="/static/edit/edit-vitals.js"></script>
+
+{% endblock %}

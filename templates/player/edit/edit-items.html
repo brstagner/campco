@@ -1,0 +1,176 @@
+{% extends 'base.html' %} {% block title %}Edit Inventory{% endblock %} {%block
+body %}
+
+<h1>Edit Inventory</h1>
+<a href="/player/{{player_id}}">return without changes</a>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+  <div class="grid-container">
+    <div>
+      {{ form.weapons.label }}{{ form.weapons(hidden="true") }}
+      <button id="weapons-add" class="add" data-type="weapons">
+        Add Weapon
+      </button>
+    </div>
+    <div id="weapons-input" class="row">
+      {% if items.weapons %} {% for weapon in items.weapons %}
+      <div>
+        Name
+        <input
+          class="weapons-name"
+          name="weapons-name"
+          list="weapons-datalist"
+          value="{{ weapon.name }}" />
+        Number
+        <input
+          class="weapons-number"
+          name="weapons-number"
+          type="number"
+          value="{{ weapon.number }}" />
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.armor.label }}{{ form.armor(hidden="true") }}
+      <button id="armor-add" class="add" data-type="armor">Add Armor</button>
+    </div>
+    <div id="armor-input" class="row">
+      {% if items.armor %} {% for armor in items.armor %}
+      <div>
+        Name
+        <input
+          class="armor-name"
+          name="armor-name"
+          list="armor-datalist"
+          value="{{ armor.name }}" />
+        Number
+        <input
+          class="armor-number"
+          name="armor-number"
+          type="number"
+          value="{{ armor.number }}" />
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.tools.label }}{{ form.tools(hidden="true") }}
+      <button id="tools-add" class="add" data-type="tools">Add tool</button>
+    </div>
+    <div id="tools-input" class="row">
+      {% if items.tools %} {% for tool in items.tools %}
+      <div>
+        Name
+        <input
+          class="tools-name"
+          name="tools-name"
+          list="tools-datalist"
+          value="{{ tool.name }}" />
+        Number
+        <input
+          class="tools-number"
+          name="tools-number"
+          type="number"
+          value="{{ tool.number }}" />
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.wallet.label }}{{ form.wallet(hidden="true") }}
+      <button id="wallet-add" class="add" data-type="wallet">
+        Add Currency
+      </button>
+    </div>
+    <div id="wallet-input" class="row">
+      {% if items.wallet %} {% for item in items.wallet %}
+      <div>
+        Name
+        <input
+          class="wallet-name"
+          name="wallet-name"
+          list="wallet-datalist"
+          value="{{ item.name }}" />
+        Number
+        <input
+          class="wallet-number"
+          name="wallet-number"
+          type="number"
+          value="{{ item.number }}" />
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+    <div>
+      {{ form.other.label }}{{ form.other(hidden="true") }}
+      <button id="other-add" class="add" data-type="other">Add Item</button>
+    </div>
+    <div id="other-input" class="row">
+      {% if items.other %} {% for item in items.other %}
+      <div>
+        Name
+        <input
+          class="other-name"
+          name="other-name"
+          list="other-datalist"
+          value="{{ item.name }}" />
+        Number
+        <input
+          class="other-number"
+          name="other-number"
+          type="number"
+          value="{{ item.number }}" />
+        <button class="delete">Delete</button>
+      </div>
+      {% endfor %} {% endif %}
+    </div>
+
+    <div>{{ form.weight.label }}{{ form.weight(hidden="true") }}</div>
+    <div>
+      <label for="weight-current">Current</label>
+      <input
+        id="weight-current"
+        name="weight-current"
+        type="number"
+        value="{{ items.weight.current }}" />
+      <label for="weight-max">Max</label>
+      <input
+        id="weight-max"
+        name="weight-max"
+        type="number"
+        value="{{ items.weight.max }}" />
+    </div>
+    <div>{{ form.notes.label }}</div>
+    <div>{{ form.notes }}</div>
+  </div>
+  <button id="submit">Submit</button>
+</form>
+
+<datalist id="weapons-datalist">
+  {% for weapon in options.weapons %}
+  <option id="{{ weapon.name }}" value="{{ weapon.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="armor-datalist">
+  {% for armor in options.armor %}
+  <option id="{{ armor.name }}" value="{{ armor.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="tools-datalist">
+  {% for tool in options.tools %}
+  <option id="{{ tool.name }}" value="{{ tool.name }}"></option>
+  {% endfor %}
+</datalist>
+<datalist id="wallet-datalist">
+  <option value="Copper"></option>
+  <option value="Electrum"></option>
+  <option value="Silver"></option>
+  <option value="Gold"></option>
+  <option value="Platinum"></option>
+</datalist>
+
+<script src="/static/edit/edit-items.js"></script>
+
+{% endblock %}

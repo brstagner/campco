@@ -1,0 +1,22 @@
+<div class="collection">
+  Attacks: {% for attack in combat.attacks %}
+  <div class="item">
+    {{ attack.name }}: {{ attack.throws }}d{{ attack.die }} x {{ attack.number
+    }}
+  </div>
+  {% endfor %}
+</div>
+<div class="collection row">
+  <div class="item">AC: {{ combat.ac }}</div>
+  <div class="item">Initiative: {{ combat.initiative }}</div>
+  <div class="item">Speed: {{ combat.speed }}</div>
+  <div class="item">Inspiration: {{ combat.inspiration }}</div>
+  {% if combat.max_ki !=0 %}
+  <div class="item">Ki: {{ combat.ki.current }} / {{ combat.ki.max }}</div>
+  {% endif %}
+</div>
+{% if combat.notes %}
+<div class="collection">
+  <div class="descriptive">{{combat.notes}}</div>
+</div>
+{% endif %}

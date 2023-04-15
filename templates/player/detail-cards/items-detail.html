@@ -1,0 +1,42 @@
+<div class="row">
+  {% if items.weapons %}
+  <div class="collection">
+    Weapons: {% for item in items.weapons %}
+    <div class="item">{{ item.name }} x {{ item.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if items.armor %}
+  <div class="collection">
+    Armor: {% for item in items.armor %}
+    <div class="item">{{ item.name }} x {{ item.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if items.tools %}
+  <div class="collection">
+    Tools: {% for item in items.tools %}
+    <div class="item">{{ item.name }} x {{ item.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if items.wallet %}
+  <div class="collection">
+    Wallet: {% for item in items.wallet %}
+    <div class="item">{{ item.name }} x {{ item.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if items.other %}
+  <div class="collection">
+    Other: {% for item in items.other %}
+    <div class="item">{{ item.name }} x {{ item.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="collection">
+  <div class="item">
+    Encumbrance: {{ items.weight.current }}/{{ items.weight.max }}
+  </div>
+</div>
+<div class="collection">
+  <div class="descriptive">{{items.notes}}</div>
+</div>

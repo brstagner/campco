@@ -1,0 +1,51 @@
+<div class="row">
+  {% if proficiency.skills %}
+  <div class="collection">
+    Skills: {% for skill in proficiency.skills %}
+    <div class="item">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if proficiency.weapons %}
+  <div class="collection">
+    Weapons: {% for skill in proficiency.weapons %}
+    <div class="item">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if proficiency.armor %}
+  <div class="collection">
+    Armor: {% for skill in proficiency.armor %}
+    <div class="item">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if proficiency.tools %}
+  <div class="collection">
+    Tools: {% for skill in proficiency.tools %}
+    <div class="item">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if proficiency.languages %}
+  <div class="collection">
+    Languages: {% for skill in proficiency.languages %}
+    <div class="item">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if proficiency.traits %}
+  <div class="collection">
+    Traits: {% for skill in proficiency.traits %}
+    <div class="item">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if proficiency.features %}
+  <div class="collection">
+    Features: {% for skill in proficiency.features %}
+    <div class="item">{{ skill.name }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+{% if proficiency.notes %}
+<div class="collection">
+  <div class="descriptive">{{proficiency.notes}}</div>
+</div>
+{% endif %}

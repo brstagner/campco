@@ -1,0 +1,75 @@
+<div>
+  <button>Known Spells</button>
+
+  <div class="collection" hidden>
+    {% if spells.known %}{% for spell in spells.known %}
+    <div class="item info" data-desc="{{ spell.desc }}">{{ spell.name }}</div>
+    {% else %}
+    <div>None</div>
+    {% endfor %} {% endif %}
+  </div>
+</div>
+
+<div class="row">
+  {% if spells.lv0 %}
+  <div class="collection">
+    Cantrips: {% for spell in spells.lv0 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv1 %}
+  <div class="collection">
+    Level 1: {% for spell in spells.lv1 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv2 %}
+  <div class="collection">
+    Level 2: {% for spell in spells.lv2 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv3 %}
+  <div class="collection">
+    Level 3: {% for spell in spells.lv3 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv4 %}
+  <div class="collection">
+    Level 4: {% for spell in spells.lv4 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv5 %}
+  <div class="collection">
+    Level 5: {% for spell in spells.lv5 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv6 %}
+  <div class="collection">
+    Level 6: {% for spell in spells.lv6 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv7 %}
+  <div class="collection">
+    Level 7: {% for spell in spells.lv7 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv8 %}
+  <div class="collection">
+    Level 8: {% for spell in spells.lv8 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% if spells.lv9 %}
+  <div class="collection">
+    Level 9: {% for spell in spells.lv9 %}
+    <div class="item">{{ spell.name }} x {{ spell.number }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>

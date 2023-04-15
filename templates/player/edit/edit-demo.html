@@ -1,0 +1,142 @@
+{% extends 'base.html' %} {% block title %}Edit Demographics{% endblock %}
+{%block body %}
+
+<h1>Edit Demographics</h1>
+<a href="/player/{{player_id}}">return without changes</a>
+
+<form method="POST" novalidate>
+  {{ form.hidden_tag() }}
+
+  <div class="grid-container">
+    <div>{{ form.player_level.label }}</div>
+    <div>{{ form.player_level }}</div>
+    <div>{{ form.player_xp.label }}</div>
+    <div>{{ form.player_xp }}</div>
+
+    <div>{{ form.race.label }}{{ form.race(hidden="true") }}</div>
+    <div>
+      <label for="race-name">Name</label>
+      <input
+        id="race-name"
+        class="options"
+        name="race-name"
+        list="race-datalist"
+        value="{{ demo.race.name }}" />
+      <label for="race-desc">Description</label>
+      <textarea id="race-desc" name="race-desc">{{ demo.race.desc }}</textarea>
+    </div>
+    <div>{{ form.subrace.label }}{{ form.subrace(hidden="true") }}</div>
+    <div>
+      <label for="subrace-name">Name</label>
+      <input
+        id="subrace-name"
+        class="options"
+        name="subrace-name"
+        list="subrace-datalist"
+        value="{{ demo.subrace.name }}" />
+      <label for="subrace-desc">Description</label>
+      <textarea id="subrace-desc" name="subrace-desc">
+{{ demo.subrace.desc }}</textarea
+      >
+    </div>
+    <div>{{ form.job.label }}</div>
+    <div>{{form.job(list="job-datalist")}}</div>
+
+    <div>{{ form.subjob.label }}{{ form.subjob(hidden="true") }}</div>
+    <div>
+      <label for="subjob-name">Name</label>
+      <input
+        id="subjob-name"
+        class="options"
+        name="subjob-name"
+        list="subjob-datalist"
+        value="{{ demo.subjob.name }}" />
+      <label for="subjob-desc">Description</label>
+      <textarea id="subjob-desc" name="subjob-desc">
+{{ demo.subjob.desc }}</textarea
+      >
+    </div>
+
+    <div>{{ form.alignment.label }}{{ form.alignment(hidden="true") }}</div>
+    <div>
+      <label for="alignment-name">Name</label>
+      <input
+        id="alignment-name"
+        class="options"
+        name="alignment-name"
+        list="alignment-datalist"
+        value="{{ demo.alignment.name }}" />
+      <label for="alignment-desc">Description</label>
+      <textarea id="alignment-desc" name="alignment-desc">
+{{ demo.alignment.desc }}</textarea
+      >
+    </div>
+
+    <div>{{ form.age.label }}</div>
+    <div>{{ form.age }}</div>
+    <div>{{ form.size.label }}</div>
+    <div>{{form.size(list="size_datalist")}}</div>
+    <div>{{ form.notes.label }}</div>
+    <div>{{ form.notes }}</div>
+  </div>
+
+  <button id="submit">Submit</button>
+</form>
+
+<datalist id="race-datalist">
+  {% for race in options.races %}
+  <option
+    id="{{ race.index }}"
+    value="{{ race.name }}"
+    data-desc="{{ race.desc }}">
+    {% endfor %}
+  </option>
+</datalist>
+
+<datalist id="subrace-datalist">
+  {% for subrace in options.subraces %}
+  <option
+    id="{{ subrace.index }}"
+    value="{{ subrace.name }}"
+    data-desc="{{ subrace.desc }}">
+    {% endfor %}
+  </option>
+</datalist>
+
+<datalist id="job-datalist">
+  {% for job in options.classes %}
+  <option value="{{ job.name }}">{% endfor %}</option>
+</datalist>
+
+<datalist id="subjob-datalist">
+  {% for subjob in options.subclasses %}
+  <option
+    id="{{ subjob.index }}"
+    value="{{ subjob.name }}"
+    data-desc="{{ subjob.desc[0] }}">
+    {% endfor %}
+  </option>
+</datalist>
+
+<datalist id="alignment-datalist">
+  {% for alignment in options.alignments %}
+  <option
+    id="{{ alignment.index }}"
+    value="{{ alignment.name }}"
+    data-desc="{{ alignment.desc }}">
+    {% endfor %}
+  </option>
+</datalist>
+
+<datalist id="size-datalist">
+  <option value="Tiny"></option>
+  <option value="Small"></option>
+  <option value="Medium"></option>
+  <option value="Large"></option>
+  <option value="Huge"></option>
+  <option value="Gargantuan"></option>
+</datalist>
+
+<script src="/static/edit/edit-demo.js"></script>
+
+{% endblock %}

@@ -1,10 +1,10 @@
 <div class="collection">
-  Attacks: {% for attack in combat.attacks %}
+  Attacks: {% if combat.attacks %}{% for attack in combat.attacks %}
   <div class="item">
     {{ attack.name }}: {{ attack.throws }}d{{ attack.die }} x {{ attack.number
     }}
   </div>
-  {% endfor %}
+  {% endfor %} {% endif %}
 </div>
 <div class="collection row">
   <div class="item">AC: {{ combat.ac }}</div>

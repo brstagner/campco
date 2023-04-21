@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session, flash, request
+from flask import Flask
 import os
 from models.base import connect_db, db
 from routes.user_routes import user_routes

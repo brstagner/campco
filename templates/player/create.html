@@ -2,7 +2,7 @@
 {% block title %}Player Create{% endblock %}
 {%block body %}
 <h1>Player Create</h1>
-<a href="/user/{{username}}">return to user details</a>
+<a href="/user">return to user details</a>
 <form method="POST" novalidate>
     {{ form.hidden_tag() }}
     {% for field in form if field.widget.input_type != 'hidden' %}

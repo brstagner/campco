@@ -1,16 +1,21 @@
 from models.base import db
 from sqlalchemy.dialects.postgresql import JSON
 
+
 class Player(db.Model):
-    __tablename__ = 'players'
-    
+    __tablename__ = "players"
+
     player_id = db.Column(db.Integer, primary_key=True, unique=True, autoincrement=True)
     name = db.Column(db.String(50), nullable=False)
     party_notes = db.Column(db.Text)
     player_notes = db.Column(db.Text)
     dm_notes = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id', ondelete='cascade'), nullable=False)
-    campaign_id = db.Column(db.Integer, db.ForeignKey('campaigns.campaign_id', ondelete='cascade'))
+    user_id = db.Column(
+        db.Integer, db.ForeignKey("users.user_id", ondelete="cascade"), nullable=False
+    )
+    campaign_id = db.Column(
+        db.Integer, db.ForeignKey("campaigns.campaign_id", ondelete="cascade")
+    )
 
     @classmethod
     def create(cls, name, user_id, campaign_id):
@@ -34,16 +39,22 @@ class Player(db.Model):
 
         # Return player_id
         return player.player_id
-    
+
     @classmethod
     def edit(cls):
         db.session.commit()
 
-class Demo(db.Model):
-    __tablename__ = 'demo'
 
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
-    
+class Demo(db.Model):
+    __tablename__ = "demo"
+
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
+
     player_level = db.Column(db.Integer, default=1)
     player_xp = db.Column(db.Integer, default=0)
     race = db.Column(db.JSON, default={"name": "", "desc": ""})
@@ -64,9 +75,15 @@ class Demo(db.Model):
         demo = cls(player_id=player_id)
         db.session.add(demo)
 
+
 class Vitals(db.Model):
-    __tablename__ = 'vitals'
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
+    __tablename__ = "vitals"
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
     hp = db.Column(db.JSON, default={"current": 0, "max": 0})
     hd = db.Column(db.ARRAY(JSON))
     conditions = db.Column(db.ARRAY(JSON))
@@ -81,29 +98,43 @@ class Vitals(db.Model):
         vitals = cls(player_id=player_id)
         db.session.add(vitals)
 
+
 class Combat(db.Model):
-    __tablename__ = 'combat'
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
-    attacks = db.Column(db.ARRAY(JSON), default=[]) # ex. [{name: 'Short Sword', throws:1, die:6, number:2},...]
+    __tablename__ = "combat"
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
+    attacks = db.Column(
+        db.ARRAY(JSON), default=[]
+    )  # ex. [{name: 'Short Sword', throws:1, die:6, number:2},...]
     ac = db.Column(db.Integer, default=0)
     initiative = db.Column(db.Integer, default=0)
     speed = db.Column(db.Integer, default=0)
     inspiration = db.Column(db.Integer, default=0)
-    ki = db.Column(db.JSON, default={"current": 0, "max":0})
+    ki = db.Column(db.JSON, default={"current": 0, "max": 0})
     notes = db.Column(db.Text)
 
     @classmethod
     def edit(cls):
         db.session.commit()
-    
+
     @classmethod
     def add(cls, player_id):
         combat = cls(player_id=player_id)
         db.session.add(combat)
 
+
 class Spells(db.Model):
-    __tablename__ = 'spells'
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
+    __tablename__ = "spells"
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
     known = db.Column(db.ARRAY(JSON), default=[])
     lv0 = db.Column(db.ARRAY(JSON), default=[])
     lv1 = db.Column(db.ARRAY(JSON), default=[])
@@ -120,16 +151,22 @@ class Spells(db.Model):
     @classmethod
     def edit(cls):
         db.session.commit()
-    
+
     @classmethod
     def add(cls, player_id):
         spells = cls(player_id=player_id)
         db.session.add(spells)
 
-class Ability(db.Model):
-    __tablename__ = 'abilities'
 
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
+class Ability(db.Model):
+    __tablename__ = "abilities"
+
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
     strength = db.Column(db.Integer, default=0)
     dexterity = db.Column(db.Integer, default=0)
     constitution = db.Column(db.Integer, default=0)
@@ -141,15 +178,21 @@ class Ability(db.Model):
     @classmethod
     def edit(cls):
         db.session.commit()
-    
+
     @classmethod
     def add(cls, player_id):
         ability = cls(player_id=player_id)
         db.session.add(ability)
 
+
 class Level(db.Model):
-    __tablename__ = 'levels'
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
+    __tablename__ = "levels"
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
 
     Barbarian = db.Column(db.Integer, default=0)
     Bard = db.Column(db.Integer, default=0)
@@ -173,10 +216,16 @@ class Level(db.Model):
         level = cls(player_id=player_id)
         db.session.add(level)
 
-class Proficiency(db.Model):
-    __tablename__ = 'proficiencies'
 
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
+class Proficiency(db.Model):
+    __tablename__ = "proficiencies"
+
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
 
     # ex. ['Short Sword', 'Shield]
     skills = db.Column(db.ARRAY(JSON), default=[])
@@ -191,16 +240,22 @@ class Proficiency(db.Model):
     @classmethod
     def edit(cls):
         db.session.commit()
-    
+
     @classmethod
     def add(cls, player_id):
         proficiency = cls(player_id=player_id)
         db.session.add(proficiency)
 
-class Items(db.Model):
-    __tablename__ = 'items'
 
-    player_id = db.Column(db.Integer, db.ForeignKey('players.player_id', ondelete='cascade'), primary_key=True, unique=True)
+class Items(db.Model):
+    __tablename__ = "items"
+
+    player_id = db.Column(
+        db.Integer,
+        db.ForeignKey("players.player_id", ondelete="cascade"),
+        primary_key=True,
+        unique=True,
+    )
 
     weapons = db.Column(db.ARRAY(JSON), default=[])
     armor = db.Column(db.ARRAY(JSON), default=[])
@@ -214,7 +269,7 @@ class Items(db.Model):
     @classmethod
     def edit(cls):
         db.session.commit()
-    
+
     @classmethod
     def add(cls, player_id):
         items = cls(player_id=player_id)

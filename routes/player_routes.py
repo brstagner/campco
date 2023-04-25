@@ -1,14 +1,41 @@
 from flask import Blueprint, render_template, flash, session, redirect
-from forms.player_forms import PlayerCreate, EditPlayer, EditDemo, EditVitals, EditCombat, EditSpells, EditAbility, EditProficiency, EditItems, EditLevel
-from models.player import Player, Demo, Vitals, Combat, Spells, Ability, Level, Proficiency, Items
+from forms.player_forms import (
+    PlayerCreate,
+    EditPlayer,
+    EditDemo,
+    EditVitals,
+    EditCombat,
+    EditSpells,
+    EditAbility,
+    EditProficiency,
+    EditItems,
+    EditLevel,
+)
+from models.player import (
+    Player,
+    Demo,
+    Vitals,
+    Combat,
+    Spells,
+    Ability,
+    Level,
+    Proficiency,
+    Items,
+)
 from models.campaign import Campaign
 from authorization import edit_auth
-from dnd_requests import demo_query, vitals_query, spells_query, proficiency_query, items_query
+from dnd_requests import (
+    demo_query,
+    vitals_query,
+    spells_query,
+    proficiency_query,
+    items_query,
+)
 
-player_routes = Blueprint('player_routes', __name__,
-                        template_folder='templates')
+player_routes = Blueprint("player_routes", __name__, template_folder="templates")
 
-@player_routes.route('/player/create', methods=['GET', 'POST'])
+
+@player_routes.route("/player/create", methods=["GET", "POST"])
 def create():
     """
     Shows form to create player
@@ -18,7 +45,7 @@ def create():
     campaigns = Campaign.names()
 
     if form.validate_on_submit():
-        user_id = session['user_id']
+        user_id = session["user_id"]
         campaign_id = form.campaign_id.data
         password = form.password.data
 
@@ -27,20 +54,19 @@ def create():
 
         if campaign or campaign_id == None:
             # Permit creation
-
             name = form.name.data
             player_id = Player.create(name, user_id, campaign_id)
 
-            return redirect(f'/player/{player_id}')
+            return redirect(f"/player/{player_id}")
 
         else:
-            flash('Authentication failed, check password')
-            return redirect(f'/player/create')
+            flash("Authentication failed, check password")
+            return redirect(f"/player/create")
     else:
-        username = session['username']
-        return render_template('player/create.html', form=form, campaigns=campaigns, username=username)
-    
-@player_routes.route('/player/<player_id>')
+        return render_template("player/create.html", form=form, campaigns=campaigns)
+
+
+@player_routes.route("/player/<player_id>")
 def player_detail(player_id):
     """
     Verify logged-in user owns player
@@ -48,8 +74,8 @@ def player_detail(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
-    
+        return redirect("/")
+
     demo = Demo.query.get(player_id)
     vitals = Vitals.query.get(player_id)
     combat = Combat.query.get(player_id)
@@ -64,11 +90,26 @@ def player_detail(player_id):
     else:
         campaign = None
 
-    return render_template('/player/detail.html', edit=True, player=player, demo=demo, vitals=vitals, combat=combat, spells=spells, ability=ability, level=level, proficiency=proficiency, items=items, campaign=campaign)
+    return render_template(
+        "/player/detail.html",
+        edit=True,
+        player=player,
+        demo=demo,
+        vitals=vitals,
+        combat=combat,
+        spells=spells,
+        ability=ability,
+        level=level,
+        proficiency=proficiency,
+        items=items,
+        campaign=campaign,
+    )
+
 
 ### Player Edit Routes ###
 
-@player_routes.route('/player/<player_id>/edit/player', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/player", methods=["GET", "POST"])
 def edit_player(player_id):
     """
     Verify player exists and logged-in user owns player
@@ -76,8 +117,8 @@ def edit_player(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
-    
+        return redirect("/")
+
     form = EditPlayer()
     player = Player.query.get(player_id)
     current_campaign_id = player.campaign_id
@@ -103,19 +144,22 @@ def edit_player(player_id):
             # commit to database
             Player.edit()
 
-            return redirect(f'/player/{player_id}')
-        
+            return redirect(f"/player/{player_id}")
+
         else:
-            flash('Campaign authentication failed, check password')
-            return redirect(f'/player/{player_id}/edit/player')
+            flash("Campaign authentication failed, check password")
+            return redirect(f"/player/{player_id}/edit/player")
 
     else:
         form.campaign_id.data = player.campaign_id
         form.name.data = player.name
 
-        return render_template('/player/edit/edit-player.html', form=form, player=player)
+        return render_template(
+            "/player/edit/edit-player.html", form=form, player=player
+        )
 
-@player_routes.route('/player/<player_id>/edit/demo', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/demo", methods=["GET", "POST"])
 def edit_demo(player_id):
     """
     Verify logged-in user owns player
@@ -123,7 +167,7 @@ def edit_demo(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditDemo()
     demo = Demo.query.get(player_id)
@@ -143,7 +187,7 @@ def edit_demo(player_id):
         # commit to database
         Demo.edit()
 
-        return redirect(f'/player/{player_id}')
+        return redirect(f"/player/{player_id}")
 
     else:
         options = demo_query()
@@ -159,10 +203,16 @@ def edit_demo(player_id):
         form.size.data = demo.size
         form.notes.data = demo.notes
 
-        return render_template('/player/edit/edit-demo.html', form=form, player_id=player_id, demo=demo, options=options)
+        return render_template(
+            "/player/edit/edit-demo.html",
+            form=form,
+            player_id=player_id,
+            demo=demo,
+            options=options,
+        )
 
 
-@player_routes.route('/player/<player_id>/edit/level', methods=['GET', 'POST'])
+@player_routes.route("/player/<player_id>/edit/level", methods=["GET", "POST"])
 def edit_level(player_id):
     """
     Verify logged-in user owns player
@@ -170,7 +220,7 @@ def edit_level(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditLevel()
     level = Level.query.get(player_id)
@@ -192,7 +242,7 @@ def edit_level(player_id):
         # commit to database
         Level.edit()
 
-        return redirect(f'/player/{player_id}')
+        return redirect(f"/player/{player_id}")
 
     else:
         form.barbarian.data = level.Barbarian
@@ -207,9 +257,12 @@ def edit_level(player_id):
         form.sorcerer.data = level.Sorcerer
         form.warlock.data = level.Warlock
         form.wizard.data = level.Wizard
-        return render_template('/player/edit/edit-level.html', form=form, player_id=player_id)
+        return render_template(
+            "/player/edit/edit-level.html", form=form, player_id=player_id
+        )
 
-@player_routes.route('/player/<player_id>/edit/vitals', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/vitals", methods=["GET", "POST"])
 def edit_vitals(player_id):
     """
     Verify logged-in user owns player
@@ -217,7 +270,7 @@ def edit_vitals(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditVitals()
     vitals = Vitals.query.get(player_id)
@@ -231,8 +284,8 @@ def edit_vitals(player_id):
         # commit to database
         Vitals.edit()
 
-        return redirect(f'/player/{player_id}')
-    
+        return redirect(f"/player/{player_id}")
+
     else:
         options = vitals_query()
 
@@ -244,9 +297,16 @@ def edit_vitals(player_id):
             form.conditions.data = vitals.conditions if vitals.conditions else {}
             form.notes.data = vitals.notes
 
-        return render_template('/player/edit/edit-vitals.html', form=form, player_id=player_id, vitals=vitals, options=options)
+        return render_template(
+            "/player/edit/edit-vitals.html",
+            form=form,
+            player_id=player_id,
+            vitals=vitals,
+            options=options,
+        )
 
-@player_routes.route('/player/<player_id>/edit/combat', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/combat", methods=["GET", "POST"])
 def edit_combat(player_id):
     """
     Verify logged-in user owns player
@@ -254,7 +314,7 @@ def edit_combat(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditCombat()
     combat = Combat.query.get(player_id)
@@ -273,8 +333,8 @@ def edit_combat(player_id):
         # commit to database
         Combat.edit()
 
-        return redirect(f'/player/{player_id}')
-    
+        return redirect(f"/player/{player_id}")
+
     else:
         form.attacks.data = combat.attacks
         form.ac.data = combat.ac
@@ -284,9 +344,15 @@ def edit_combat(player_id):
         form.ki.data = combat.ki
         form.notes.data = combat.notes
 
-        return render_template('/player/edit/edit-combat.html', form=form, player_id=player_id, combat=combat)
+        return render_template(
+            "/player/edit/edit-combat.html",
+            form=form,
+            player_id=player_id,
+            combat=combat,
+        )
 
-@player_routes.route('/player/<player_id>/edit/spells', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/spells", methods=["GET", "POST"])
 def edit_spells(player_id):
     """
     Verify logged-in user owns player
@@ -294,7 +360,7 @@ def edit_spells(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditSpells()
     spells = Spells.query.get(player_id)
@@ -312,11 +378,11 @@ def edit_spells(player_id):
         spells.lv8 = eval(form.lv8.data) or []
         spells.lv9 = eval(form.lv9.data) or []
         spells.notes = form.notes.data
-    
+
         # commit to database
         Spells.edit()
 
-        return redirect(f'/player/{player_id}')
+        return redirect(f"/player/{player_id}")
 
     else:
         options = spells_query()
@@ -334,9 +400,16 @@ def edit_spells(player_id):
         form.lv9.data = spells.lv9
         form.notes.data = spells.notes
 
-        return render_template('/player/edit/edit-spells.html', form=form, player_id=player_id, spells=spells, options=options)
+        return render_template(
+            "/player/edit/edit-spells.html",
+            form=form,
+            player_id=player_id,
+            spells=spells,
+            options=options,
+        )
 
-@player_routes.route('/player/<player_id>/edit/ability', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/ability", methods=["GET", "POST"])
 def edit_ability(player_id):
     """
     Verify logged-in user owns player
@@ -344,7 +417,7 @@ def edit_ability(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditAbility()
     ability = Ability.query.get(player_id)
@@ -361,8 +434,8 @@ def edit_ability(player_id):
         # commit to database
         Ability.edit()
 
-        return redirect(f'/player/{player_id}')
-    
+        return redirect(f"/player/{player_id}")
+
     else:
         form.strength.data = ability.strength
         form.dexterity.data = ability.dexterity
@@ -372,9 +445,15 @@ def edit_ability(player_id):
         form.charisma.data = ability.charisma
         form.notes.data = ability.notes
 
-        return render_template('/player/edit/edit-ability.html', form=form, player_id=player_id, ability=ability)
+        return render_template(
+            "/player/edit/edit-ability.html",
+            form=form,
+            player_id=player_id,
+            ability=ability,
+        )
 
-@player_routes.route('/player/<player_id>/edit/proficiency', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/proficiency", methods=["GET", "POST"])
 def edit_proficiency(player_id):
     """
     Verify logged-in user owns player
@@ -382,7 +461,7 @@ def edit_proficiency(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditProficiency()
     proficiency = Proficiency.query.get(player_id)
@@ -400,8 +479,8 @@ def edit_proficiency(player_id):
         # commit to database
         Proficiency.edit()
 
-        return redirect(f'/player/{player_id}')
-    
+        return redirect(f"/player/{player_id}")
+
     else:
         options = proficiency_query()
 
@@ -414,9 +493,16 @@ def edit_proficiency(player_id):
         form.features.data = proficiency.features
         form.notes.data = proficiency.notes
 
-        return render_template('/player/edit/edit-proficiency.html', form=form, player_id=player_id, proficiency=proficiency, options=options)
+        return render_template(
+            "/player/edit/edit-proficiency.html",
+            form=form,
+            player_id=player_id,
+            proficiency=proficiency,
+            options=options,
+        )
 
-@player_routes.route('/player/<player_id>/edit/items', methods=['GET', 'POST'])
+
+@player_routes.route("/player/<player_id>/edit/items", methods=["GET", "POST"])
 def edit_items(player_id):
     """
     Verify logged-in user owns player
@@ -424,7 +510,7 @@ def edit_items(player_id):
     """
     player = edit_auth(player_id)
     if player == None:
-        return redirect('/')
+        return redirect("/")
 
     form = EditItems()
     items = Items.query.get(player_id)
@@ -441,8 +527,8 @@ def edit_items(player_id):
         # commit to database
         Items.edit()
 
-        return redirect(f'/player/{player_id}')
-    
+        return redirect(f"/player/{player_id}")
+
     else:
         options = items_query()
 
@@ -454,4 +540,10 @@ def edit_items(player_id):
         form.weight.data = items.weight
         form.notes.data = items.notes
 
-        return render_template('/player/edit/edit-items.html', form=form, player_id=player_id, items=items, options=options)
+        return render_template(
+            "/player/edit/edit-items.html",
+            form=form,
+            player_id=player_id,
+            items=items,
+            options=options,
+        )

@@ -1,11 +1,12 @@
 import os
-from dotenv import load_dotenv
+
+# from dotenv import load_dotenv
 from unittest import TestCase
 from models.user import User
 from models.campaign import Campaign
 from models.player import Player
 
-load_dotenv()
+# load_dotenv()
 
 # Switch to test database before importing app
 os.environ["DATABASE_URL"] = os.environ["TEST_DATABASE_URL"]

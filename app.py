@@ -2,13 +2,13 @@ from flask import Flask
 import os
 from flask_cors import CORS
 
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 from models.base import connect_db, db
 from routes.user_routes import user_routes
 from routes.player_routes import player_routes
 from routes.campaign_routes import campaign_routes
 
-# load_dotenv()
+load_dotenv()
 
 app = Flask(__name__)
 CORS(app)

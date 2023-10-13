@@ -35,5 +35,5 @@ app.app_context().push()
 
 connect_db(app)
 
-db.drop_all()
-db.create_all()
+# db.drop_all()
+# db.create_all()

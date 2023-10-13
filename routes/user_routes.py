@@ -15,13 +15,8 @@ def show():
         return redirect("/login")
 
 
-@user_routes.route("/register", methods=["GET"])
-def registerget():
-    return render_template("user/register.html", form=form)
-
-
-@user_routes.route("/register", methods=["POST"])
-def registerpost():
+@user_routes.route("/register", methods=["GET", "POST"])
+def register():
     """
     Shows form to add users
     Adds a new user to database
@@ -53,43 +48,8 @@ def registerpost():
         session["username"] = user.username
         session["user_id"] = user.user_id
         return redirect("/user")
-
-
-# @user_routes.route("/register", methods=["GET", "POST"])
-# def register():
-#     """
-#     Shows form to add users
-#     Adds a new user to database
-#     """
-
-#     if "user_id" in session:
-#         flash("Log out before registering a new user")
-#         return redirect("/user")
-
-#     form = RegisterUser()
-
-#     if form.validate_on_submit():
-#         username = form.username.data
-#         email = form.email.data
-#         user_check = User.query.filter(User.username == username).first()
-#         email_check = User.query.filter(User.email == email).first()
-
-#         if user_check or email_check:
-#             if user_check:
-#                 flash("Username already in use, choose a different username")
-#             if email_check:
-#                 flash("Email already in use")
-#             return redirect("/register")
-
-#         password = form.password.data
-
-#         user = User.register(username, email, password)
-
-#         session["username"] = user.username
-#         session["user_id"] = user.user_id
-#         return redirect("/user")
-#     else:
-#         return render_template("user/register.html", form=form)
+    else:
+        return render_template("user/register.html", form=form)
 
 
 @user_routes.route("/login", methods=["GET", "POST"])
@@ -123,6 +83,24 @@ def login():
             return render_template("user/login.html", form=form)
 
     return render_template("user/login.html", form=form)
+
+
+@user_routes.route("/userone", methods=["GET"])
+def show_user_one():
+    """
+    Redirects to user one detail page
+    """
+    # if "user_id" in session:
+    user = User.query.get(1)
+    players = Player.query.filter(Player.user_id == user.user_id).all()
+    campaigns = Campaign.query.filter(Campaign.user_id == user.user_id).all()
+    return render_template(
+        "user/detail.html", user=user, players=players, campaigns=campaigns
+    )
+
+    # else:
+    #     flash("Log in to see user details")
+    #     return redirect("/")
 
 
 @user_routes.route("/user", methods=["GET"])

@@ -58,7 +58,8 @@ def register_one():
     Shows form to add users
     Adds a new user to database
     """
-    print(request.args.message)
+    print(request.args.get("message"))
+
     return "success"
 
     # user = User.register("ccccc", email, password)

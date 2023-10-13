@@ -52,13 +52,21 @@ def register():
         return render_template("user/register.html", form=form)
 
 
-@user_routes.route("/registerone")
+@user_routes.route("/registerone", methods=["POST"])
 def register_one():
     """
     Shows form to add users
     Adds a new user to database
     """
-    print(request.args.get("message"))
+    print(request.args.get("username"))
+    print(request.args.get("email"))
+    print(request.args.get("password"))
+
+    user = User.register(
+        request.args.get("username"),
+        request.args.get("email"),
+        request.args.get("password"),
+    )
 
     return "success"
 

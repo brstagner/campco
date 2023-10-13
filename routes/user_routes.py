@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash, session, redirect
+from flask import Blueprint, render_template, flash, session, redirect, request
 from forms.user_forms import RegisterUser, LoginUser, EditUser
 from models.user import User
 from models.campaign import Campaign
@@ -50,6 +50,18 @@ def register():
         return redirect("/user")
     else:
         return render_template("user/register.html", form=form)
+
+
+@user_routes.route("/registerone")
+def register_one():
+    """
+    Shows form to add users
+    Adds a new user to database
+    """
+    print(request.url)
+    return "success"
+
+    # user = User.register("ccccc", email, password)
 
 
 @user_routes.route("/login", methods=["GET", "POST"])

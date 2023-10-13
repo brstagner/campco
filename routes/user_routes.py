@@ -77,6 +77,8 @@ def process_registration_form():
 
     form = RegisterUser()
 
+    print(f"form.username.data: {form.username.data}")
+
     if form.validate_on_submit():
         username = form.username.data
         email = form.email.data

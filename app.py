@@ -19,6 +19,8 @@ app.config["WTF_CSRF_ENABLED"] = (
 )
 
 print(os.environ["DATABASE_URL"])
+print(os.environ["SECRET_KEY"])
+print(os.environ["WTF_CSRF_ENABLED"])
 
 app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
 

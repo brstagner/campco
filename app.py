@@ -18,6 +18,8 @@ app.config["WTF_CSRF_ENABLED"] = (
     False if os.environ["WTF_CSRF_ENABLED"] == "False" else True
 )
 
+print(os.environ["DATABASE_URL"])
+
 app.config["SECRET_KEY"] = os.environ["SECRET_KEY"]
 
 app.register_blueprint(user_routes)

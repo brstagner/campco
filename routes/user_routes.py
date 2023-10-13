@@ -71,6 +71,8 @@ def login():
         # Authenticate will return a user or False
         user = User.authenticate(username, password)
 
+        print(user.username)
+
         if user:
             # Keep logged in
             session["username"] = user.username

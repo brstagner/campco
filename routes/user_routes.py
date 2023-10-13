@@ -15,8 +15,13 @@ def show():
         return redirect("/login")
 
 
-@user_routes.route("/register", methods=["GET", "POST"])
-def register():
+@user_routes.route("/register", methods=["GET"])
+def registerget():
+    return render_template("user/register.html", form=form)
+
+
+@user_routes.route("/register", methods=["POST"])
+def registerpost():
     """
     Shows form to add users
     Adds a new user to database
@@ -48,8 +53,43 @@ def register():
         session["username"] = user.username
         session["user_id"] = user.user_id
         return redirect("/user")
-    else:
-        return render_template("user/register.html", form=form)
+
+
+# @user_routes.route("/register", methods=["GET", "POST"])
+# def register():
+#     """
+#     Shows form to add users
+#     Adds a new user to database
+#     """
+
+#     if "user_id" in session:
+#         flash("Log out before registering a new user")
+#         return redirect("/user")
+
+#     form = RegisterUser()
+
+#     if form.validate_on_submit():
+#         username = form.username.data
+#         email = form.email.data
+#         user_check = User.query.filter(User.username == username).first()
+#         email_check = User.query.filter(User.email == email).first()
+
+#         if user_check or email_check:
+#             if user_check:
+#                 flash("Username already in use, choose a different username")
+#             if email_check:
+#                 flash("Email already in use")
+#             return redirect("/register")
+
+#         password = form.password.data
+
+#         user = User.register(username, email, password)
+
+#         session["username"] = user.username
+#         session["user_id"] = user.user_id
+#         return redirect("/user")
+#     else:
+#         return render_template("user/register.html", form=form)
 
 
 @user_routes.route("/login", methods=["GET", "POST"])

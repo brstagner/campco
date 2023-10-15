@@ -105,23 +105,23 @@ def process_registration_form():
     return render_template("user/register.html", form=form)
 
 
-@user_routes.route("/registerone", methods=["POST"])
-def register_one():
-    """
-    Shows form to add users
-    Adds a new user to database
-    """
-    print(request.args.get("username"))
-    print(request.args.get("email"))
-    print(request.args.get("password"))
+# @user_routes.route("/registerone", methods=["POST"])
+# def register_one():
+#     """
+#     Shows form to add users
+#     Adds a new user to database
+#     """
+#     print(request.args.get("username"))
+#     print(request.args.get("email"))
+#     print(request.args.get("password"))
 
-    user = User.register(
-        request.args.get("username"),
-        request.args.get("email"),
-        request.args.get("password"),
-    )
+#     user = User.register(
+#         request.args.get("username"),
+#         request.args.get("email"),
+#         request.args.get("password"),
+#     )
 
-    return "success"
+#     return "success"
 
     # user = User.register("ccccc", email, password)
 
@@ -159,18 +159,18 @@ def login():
     return render_template("user/login.html", form=form)
 
 
-@user_routes.route("/userone", methods=["GET"])
-def show_user_one():
-    """
-    Redirects to user one detail page
-    """
-    # if "user_id" in session:
-    user = User.query.get(1)
-    players = Player.query.filter(Player.user_id == user.user_id).all()
-    campaigns = Campaign.query.filter(Campaign.user_id == user.user_id).all()
-    return render_template(
-        "user/detail.html", user=user, players=players, campaigns=campaigns
-    )
+# @user_routes.route("/userone", methods=["GET"])
+# def show_user_one():
+#     """
+#     Redirects to user one detail page
+#     """
+#     # if "user_id" in session:
+#     user = User.query.get(1)
+#     players = Player.query.filter(Player.user_id == user.user_id).all()
+#     campaigns = Campaign.query.filter(Campaign.user_id == user.user_id).all()
+#     return render_template(
+#         "user/detail.html", user=user, players=players, campaigns=campaigns
+#     )
 
     # else:
     #     flash("Log in to see user details")

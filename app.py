@@ -1,6 +1,5 @@
 from flask import Flask
 import os
-from flask_cors import CORS
 
 from dotenv import load_dotenv
 from models.base import connect_db, db
@@ -11,8 +10,6 @@ from routes.campaign_routes import campaign_routes
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
-
 
 # Set to production database url in .env, test files replace with test database url
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["DATABASE_URL"]

@@ -126,40 +126,8 @@ def process_registration_form():
     # user = User.register("ccccc", email, password)
 
 
-# @user_routes.route("/login", methods=["GET", "POST"])
-# def login():
-#     """
-#     Renders login page (username and password form)
-#     Redirects to user detail page
-#     """
-
-#     if "user_id" in session:
-#         return redirect("/user")
-
-#     form = LoginUser()
-
-#     if form.validate_on_submit():
-#         username = (form.username.data,)
-#         password = form.password.data
-
-#         # Authenticate will return a user or False
-#         user = User.authenticate(username, password)
-
-#         print(user.username)
-
-#         if user:
-#             # Keep logged in
-#             session["username"] = user.username
-#             session["user_id"] = user.user_id
-#             return redirect("/user")
-#         else:
-#             form.username.errors = ["Bad username or password"]
-#             return render_template("user/login.html", form=form)
-
-#     return render_template("user/login.html", form=form)
-
-@user_routes.route("/login", methods=["POST"])
-def loginpost():
+@user_routes.route("/login", methods=["GET", "POST"])
+def login():
     """
     Renders login page (username and password form)
     Redirects to user detail page
@@ -170,27 +138,60 @@ def loginpost():
 
     form = LoginUser()
 
-    username = (form.username.data,)
-    password = form.password.data
+    if form.validate_on_submit():
+        username = (form.username.data,)
+        password = form.password.data
 
-    # Authenticate will return a user or False
-    user = User.authenticate(username, password)
+        # Authenticate will return a user or False
+        user = User.authenticate(username, password)
 
-    print(user.username)
+        print(user.username)
 
-    if user:
-        # Keep logged in
-        session["username"] = user.username
-        session["user_id"] = user.user_id
-        return redirect("/user")
-    else:
-        form.username.errors = ["Bad username or password"]
-        return render_template("user/login.html", form=form)
+        if user:
+            # Keep logged in
+            session["username"] = user.username
+            session["user_id"] = user.user_id
+            return redirect("/user")
+        else:
+            print(form.errors)
+            form.username.errors = ["Bad username or password"]
+            return render_template("user/login.html", form=form)
 
-@user_routes.route("/login", methods=["GET"])
-def loginget():
-    form = LoginUser()
     return render_template("user/login.html", form=form)
+
+# @user_routes.route("/login", methods=["POST"])
+# def loginpost():
+#     """
+#     Renders login page (username and password form)
+#     Redirects to user detail page
+#     """
+
+#     if "user_id" in session:
+#         return redirect("/user")
+
+#     form = LoginUser()
+
+#     username = (form.username.data,)
+#     password = form.password.data
+
+#     # Authenticate will return a user or False
+#     user = User.authenticate(username, password)
+
+#     print(user.username)
+
+#     if user:
+#         # Keep logged in
+#         session["username"] = user.username
+#         session["user_id"] = user.user_id
+#         return redirect("/user")
+#     else:
+#         form.username.errors = ["Bad username or password"]
+#         return render_template("user/login.html", form=form)
+
+# @user_routes.route("/login", methods=["GET"])
+# def loginget():
+#     form = LoginUser()
+#     return render_template("user/login.html", form=form)
 
 
 # @user_routes.route("/userone", methods=["GET"])

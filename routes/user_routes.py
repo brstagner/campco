@@ -159,7 +159,7 @@ def process_registration_form():
 #     return render_template("user/login.html", form=form)
 
 @user_routes.route("/login", methods=["POST"])
-def login():
+def loginpost():
     """
     Renders login page (username and password form)
     Redirects to user detail page
@@ -188,7 +188,7 @@ def login():
         return render_template("user/login.html", form=form)
 
 @user_routes.route("/login", methods=["GET"])
-def login():
+def loginget():
     form = LoginUser()
     return render_template("user/login.html", form=form)
 

@@ -77,7 +77,9 @@ def process_registration_form():
 
     form = RegisterUser()
 
-    print(f"form.username.data: {form.username.data}")
+    print(f"form.username.data: {form.username.data} type: {type(form.username.data)}")
+    print(f"form.email.data: {form.email.data} type: {type(form.email.data)}")
+    print(f"form.password.data: {form.password.data} type: {type(form.password.data)}")
 
     if form.validate_on_submit():
         username = form.username.data
@@ -101,6 +103,7 @@ def process_registration_form():
         return redirect("/user")
     else:
         print("form was not validated")
+        print(f"validation errors: {form.errors}")
 
     return render_template("user/register.html", form=form)
 
@@ -138,8 +141,12 @@ def login():
 
     form = LoginUser()
 
+    print(f"form.username.data: {form.username.data} type: {type(form.username.data)}")
+    print(f"form.password.data: {form.password.data} type: {type(form.password.data)}")
+
     if form.validate_on_submit():
-        username = (form.username.data,)
+
+        username = form.username.data
         password = form.password.data
 
         # Authenticate will return a user or False
@@ -153,7 +160,8 @@ def login():
             session["user_id"] = user.user_id
             return redirect("/user")
         else:
-            print(form.errors)
+            print("form was not validated")
+            print(f"validation errors: {form.errors}")
             form.username.errors = ["Bad username or password"]
             return render_template("user/login.html", form=form)
 
